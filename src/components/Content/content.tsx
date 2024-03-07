@@ -20,20 +20,16 @@ export const Content: React.FC<Item> = () => {
     );
   };
 
-  const handleSubmit = () => {
-    if (!input.trim()) return;
-    const newTask: Item = { id: Date.now(), text: input, completed: false };
-    setTasks([...tasks, newTask]);
-    setInput("");
-  };
-
   const handleChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInput(e.target.value);
   };
 
   const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
-      handleSubmit();
+      if (!input.trim()) return;
+      const newTask: Item = { id: Date.now(), text: input, completed: false };
+      setTasks([...tasks, newTask]);
+      setInput("");
     }
   };
 
@@ -48,10 +44,6 @@ export const Content: React.FC<Item> = () => {
           onChange={handleChangeInput}
           onKeyDown={handleKeyPress}
         />
-
-        <button type="submit" hidden>
-          Submit
-        </button>
       </div>
 
       <div className="items">
